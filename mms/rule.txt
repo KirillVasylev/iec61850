@@ -1,0 +1,17 @@
+Start 2 initiate-RequestPDU confirmed-RequestPDU NODE
+initiate-RequestPDU 5 LocalDetailCalled negociatedMaxServOutstandingCalling negociatedMaxServOutstandingCalled negociatedDataStructureNestingLevel mmsInitResponseDetail NODE
+LocalDetailCalled 0 BASIC
+negociatedMaxServOutstandingCalling 0 BASIC
+negociatedMaxServOutstandingCalled 0 BASIC
+negociatedDataStructureNestingLevel 0 BASIC
+mmsInitResponseDetail 3 ProposedVersionNumber ProposedParameters ProposedServices NODE
+ProposedVersionNumber 0 BASIC
+ProposedParameter 0 BASIC
+ProposedServices 0 BASIC
+Confirmed-RequestPDU 3 InvokeID ServiceRead ServiceWrite NODE
+InokeID 0 BASIC
+ServiceRead  1 ListOfVariable NODE
+ServiceWrite 2 ListofVariable ListOfData NODE
+ListOfVariable 1 Item NODE
+Item 0 BACIC
+ListOfData 1 Item NODE
