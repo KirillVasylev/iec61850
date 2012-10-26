@@ -23,6 +23,39 @@ typedef enum {
 
 } ASN_Identifier;
 
+typedef enum
+{
+	LocalDetailCalled=0x80,
+    negociatedMaxServOutstandingCalling=0x81,	
+    negociatedMaxServOutstandingCalled	=0x82,
+    negociatedDataStructureNestingLevel		=0x83,	
+    mmsInitResponseDetail=0xA4
+}ASN_Initiate_PDU;
+
+typedef enum
+{
+	ProposedVersionNumber=0x80,
+	ProposedParam=0x81,
+	ProposedServices=0x82
+}ASN_mmsInitDetail;
+
+typedef enum
+{
+	InnvokeID=0x02,
+	serviceReadRequest=0xA4,
+	serviceWriteRequest=0XA5,
+	serviceReadResponse=0xA4,
+	serviceWriteResponse=0xA5
+}ASN_Confirmed_Sevice;
+
+typedef enum
+{
+	List =0xA0,
+	List_ofVariableItem = 0x30,
+	Name = 0xA1,
+
+}ASN_Service_Byte;
+
 typedef enum {
 	Bollean = 0x1,
 	Integer = 0x2,
@@ -36,6 +69,8 @@ typedef enum {
 	GeneralizeTime = 0x18,
 	VisibleString = 0x1A
 } ASN_Type;
+
+
 
 typedef enum {
 	object_invalidated = 0x0,
@@ -156,7 +191,7 @@ typedef union {
 		unsigned char attachToSemaphore :1;
 		unsigned char conclude :1;
 		unsigned char cancel :1;
-		unsigned char getDataExchangeAttributes :1;
+		unsigned char getDataExchangeAttributes :1;//-- Shall not appear in minor version one
 		unsigned char exchangeData :1; //-- Shall not appear in minor version one
 		unsigned char defineAccessControlList :1; //-- Shall not appear in minor version one
 		unsigned char getAccessControlListAttributes :1; //-- Shall not appear in minor version one or two			  /
