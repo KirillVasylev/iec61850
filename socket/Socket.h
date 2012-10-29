@@ -18,6 +18,7 @@
 #include <set>
 #include <algorithm>
 #include <vector>
+#include <unistd.h>
 #include "Transport.h"
 
 using namespace std;
@@ -29,30 +30,32 @@ using namespace std;
 #define NEW_PARCEL 1
 #define TIMEOUT -10
 #define MAX_CONNECTION_QUEUE 3
-#define PORT 10202
-#define TIMEOUT_SEC 10
-#define TIMEOUT_USEC 0
-class Socket
-{
-private:
-  int sock;
-  int listener;
-  struct sockaddr_in addr;
-  set<int>clients;
-  fd_set readset;
-  char buf[BUFF_SIZE];
-  int bytes_read;
-  timeval timeout;
-  vector<Transport>parcel;
-public:
-  Socket();
-  int init();
-  void close_socket();
-  int read();
-  void send_message(int socket, int size,const char* message);
-  int get_socket();
-  Transport get_buff();
-};
 
+class Socket {
+private:
+	int sock;
+	int listener;
+	int port;
+	int TimeOut_Sec;
+	int TimeOut_USec;
+	struct sockaddr_in addr;
+	set<int> clients;
+	fd_set readset;
+	char buf[BUFF_SIZE];
+	int bytes_read;
+	timeval timeout;
+	vector<Transport> parcel;
+
+public:
+	Socket(int _port, int TimeOut_Sec, int _TimeOut_Usec);
+	~Socket();
+	int init();
+	void close_socket();
+	int read();
+	void send_message(Transport parcel);
+	void send_message(int socket, int size, const char* message);
+	int get_socket();
+	Transport get_buff();
+};
 
 #endif /* SOCKET_H_ */

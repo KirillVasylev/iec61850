@@ -39,6 +39,7 @@ protected:
 
 public:
 	State_Machine();
+	~State_Machine();
 	State_Machine(int sock, string buff);
 	int start(int sock, string buff);
 	int next_step();

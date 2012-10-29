@@ -12,6 +12,7 @@
 #include <cmath>
 #include <string>
 #include "ASN_Type.h"
+#include <cstring>
 using namespace std;
 
 class Basic_Type_Coder_Decoder

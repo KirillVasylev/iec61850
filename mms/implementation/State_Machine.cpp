@@ -1,4 +1,4 @@
-#include "State_Machine.h"
+#include "../State_Machine.h"
 
 State_Machine::State_Machine()
 {
@@ -8,7 +8,15 @@ State_Machine::State_Machine()
 	size_node.clear();
 	init();
 }
+State_Machine::~State_Machine()
+{
 
+  next_node.clear();
+  message.clear();
+  stack.clear();
+  size_node.clear();
+
+}
 State_Machine::State_Machine(int sock, string buff)
 {
 	next_node.clear();
@@ -63,7 +71,8 @@ void State_Machine::init()
 {
 	
 	ifstream rules_file("rule.txt",fstream::in);
-	
+	if(!rules_file.good())
+	  cerr<<"broken rule file";
 	int size; 
 	string next;
 	Rule tmp;
@@ -94,7 +103,7 @@ int State_Machine::start(int sock,string buff)
 	message.clear();
 	stack.clear();
 	size_node.clear();
-	for(int i =0; i < buff.size();i++)
+	for(unsigned int i =0; i < buff.size();i++)
 	{
 		message.push_back(buff.c_str()[i]);
 	}
@@ -107,11 +116,11 @@ int State_Machine::start(int sock,string buff)
 int State_Machine::check_next(unsigned char current_symbol)
 {
 	unsigned char current_rule_node =get_char_by_name(stack.back());
-	for(int i = 0; i<rules.size(); i++)
+	for(unsigned int i = 0; i<rules.size(); i++)
 	{
 		if(current_rule_node == rules[i].name)
 		{
-			for(int j =0; j<rules[i].next.size(); j++)
+			for(unsigned int j =0; j<rules[i].next.size(); j++)
 			{
 				if(rules[i].next[j] == current_symbol)
 					return 0;
@@ -124,7 +133,7 @@ int State_Machine::check_next(unsigned char current_symbol)
 }
 int State_Machine::get_type(unsigned char current_symbol)
 {
-	for(int i=0; i<rules.size(); i++)
+	for(unsigned int i=0; i<rules.size(); i++)
 	{
 		if(current_symbol ==  rules[i].name)
 			return rules[i].type;
@@ -161,7 +170,7 @@ string State_Machine::get_name_by_char(unsigned char symbol)
 			return "ProposedVersionNumber";
 		if(symbol == ProposedServices)
 			return "ProposedServices";
-		if(symbol = ProposedServices)
+		if(symbol == ProposedServices)
 			return "ProposedServices";
 	}
 
@@ -176,12 +185,12 @@ string State_Machine::get_name_by_char(unsigned char symbol)
 	}
 	if((stack.back() == "serviceReadRequest")&&(*(stack.end()-2) =="confirmed_RequestPDU"))
 	{
-		if(symbol = List)
+		if(symbol == List)
 			return "List";
 	}
 	if((stack.back() == "serviceWriteRequest")&&(*(stack.end()-2) =="confirmed_RequestPDU"))
 	{
-		if(symbol = List)
+		if(symbol == List)
 			return "List";
 	}
 	if(stack.back() == "List")
@@ -227,7 +236,7 @@ int State_Machine::next_step()
 			
 		}
 		else return 1;
-		for(int i=0; i< size_node.size(); i++)
+		for(unsigned int i=0; i< size_node.size(); i++)
 		{
 			size_node[i] -=octet_poped;
 			if(size_node[i]<=0)
